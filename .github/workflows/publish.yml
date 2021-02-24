@@ -1,6 +1,8 @@
 name: Docker Image
 on:
-  push
+  push:
+    branches:
+      - "main"
   schedule:
     - "0 0 * * */1"
 jobs:
