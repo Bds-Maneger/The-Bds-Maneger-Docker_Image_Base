@@ -1,6 +1,16 @@
 FROM bdsmaneger/node_image
 user root
-ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+
+# Java
+RUN apt-get update && \
+apt-get -y install openjdk-8-jdk-headless && \
+apt-get clean && \
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+java -version
+
+ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+
+#  Android
 ENV ANDROID_SDK_URL=https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip \
 ANDROID_BUILD_TOOLS_VERSION=30.0.3 \
 ANT_HOME=/usr/share/ant \
