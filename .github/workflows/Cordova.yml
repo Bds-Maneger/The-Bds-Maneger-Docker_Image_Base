@@ -1,4 +1,4 @@
-name: Docker Image
+name: Cordova Vs Code Image
 on:
   push:
     paths:

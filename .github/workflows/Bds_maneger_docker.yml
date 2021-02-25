@@ -1,4 +1,4 @@
-name: Docker Image
+name: The Bds Maneger Docker Core
 
 on:
   push:
