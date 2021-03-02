@@ -35,7 +35,16 @@ else
     fi
 fi
 remove() {
-    node -p "require(\"/tmp/bds/index\").kill()"
+    while true
+    do
+        if [[ $(curl http://localhost:1932/info|jq '.running'|sed 's|"||g') == "true" ]];then
+            curl -X post -h "token=\"$(node -p "require('/home/bds/bds_tokens.json')[0].token")\"&command=stop" http://localhost:1932/service
+        else
+            break
+        fi
+        sleep 30s
+    done
+    exit 0
 }
 trap 'remove; exit 130' INT
 trap 'remove; exit 143' TERM

@@ -60,6 +60,14 @@
             "type": "string",
             "allowedValues": ["1","2","4","6","8","10","12","14","16"],
             "defaultValue": "4"
+        },
+        "BdsReinstall": {
+            "type": "string",
+            "allowedValues": [
+                "true",
+                "false"
+            ],
+            "defaultValue": "false"
         }
     },
     "variables": {
@@ -164,6 +172,10 @@
                                 {
                                     "name": "SERVER",
                                     "value": "[parameters('ServerPlatform')]"
+                                },
+                                {
+                                    "name": "BDS_REINSTALL",
+                                    "value": "[parameters('BdsReinstall')]"
                                 },
                                 {
                                     "name": "BDS_VERSION",
