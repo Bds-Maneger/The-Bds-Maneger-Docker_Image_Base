@@ -25,15 +25,18 @@ if [[ ${HOME} != "/home/bds/" ]]; then
     echo "New home: ${HOME}"
 fi
 
-if [[ -e /home/bds/bds_config.json ]]; then
-    node /bds_files/setup_node.js
-else
-    if [[ ${BDS_REINSTALL} == "true" ]]; then
-        node /bds_files/setup_node.js
-    else
-        echo "Skipping server installation"
-    fi
-fi
+#if [[ -e /home/bds/bds_config.json ]]; then
+#    node /bds_files/setup_node.js
+#else
+#    if [[ ${BDS_REINSTALL} == "true" ]]; then
+#        node /bds_files/setup_node.js
+#    else
+#        echo "Skipping server installation"
+#    fi
+#fi
+
+node /bds_files/setup_node.js
+echo "Setup completed"
 remove() {
     while true
     do
