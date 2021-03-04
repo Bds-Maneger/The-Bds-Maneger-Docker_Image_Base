@@ -19,23 +19,6 @@
             "type": "string",
             "defaultValue": "The Bds Maneger in Docker"
         },
-        "ServerVersion": {
-            "type": "string",
-            "defaultValue": "latest",
-            "allowedValues": [
-                "latest"
-            ]
-        },  
-        "ServerPlatform": {
-            "type": "string",
-            "defaultValue": "bedrock",
-            "allowedValues": ["bedrock","java"]
-        },
-        "BdsDebug": {
-            "type": "string",
-            "defaultValue": "false",
-            "allowedValues": ["false","true"]
-        },
         "ServerGameMode": {
             "type": "string",
             "defaultValue": "survival",
@@ -49,7 +32,36 @@
         "ServerPlayers": {
             "type": "string",
             "defaultValue": "30",
+            "metadata": {
+                "description": "The more players, the more CPU, the more RAM will be needed."
+            },
             "allowedValues": ["5","10","15","20","25","30","35","40","45","50","70","100","200"]
+        },
+        "ServerVersion": {
+            "type": "string",
+            "defaultValue": "latest",
+            "metadata": {
+                "description": "Specify a version of the Minecraft server, if you always want the latest version to use 'latest'"
+            }
+        },
+        "BdsReinstall": {
+            "type": "string",
+            "allowedValues": [
+                "true",
+                "false"
+            ],
+            "metadata": {
+                "description": "If you do not want to reinstall a new version, this is not recommended if you use the 'latest' option in the image settings"
+            },
+            "defaultValue": "true"
+        },
+        "ServerPlatform": {
+            "type": "string",
+            "defaultValue": "bedrock",
+            "allowedValues": ["bedrock","java"],
+            "metadata": {
+                "description": "Bedrock: Phones, Xbox, Nintendo switch, etc. Java: Desktops"
+            }
         },
         "numberCpuCores": {
             "type": "string",
@@ -58,21 +70,14 @@
         },
         "RamMemory": {
             "type": "string",
-            "allowedValues": ["1","2","4","6","8","10","12","14","16"],
+            "allowedValues": ["1","2","4","6","8","10"],
             "defaultValue": "4"
-        },
-        "BdsReinstall": {
-            "type": "string",
-            "allowedValues": [
-                "true",
-                "false"
-            ],
-            "defaultValue": "false"
         }
     },
     "variables": {
         "bdsstorage": "bdssave",
         "StorageName": "[concat('bdssave', uniqueString(resourceGroup().id))]",
+        "DnsName": "[concat('bdsdns-', uniqueString(resourceGroup().id))]",
         "bds_ports": [
             {
                 "port": "1932",
@@ -166,10 +171,6 @@
                                     "value": "[parameters('ServerPlayers')]"
                                 },
                                 {
-                                    "name": "Docker_Debug_Script",
-                                    "value": "[parameters('BdsDebug')]"
-                                },
-                                {
                                     "name": "SERVER",
                                     "value": "[parameters('ServerPlatform')]"
                                 },
@@ -195,7 +196,8 @@
                 "osType": "Linux",
                 "ipAddress": {
                     "type": "Public",
-                    "ports": "[variables('bds_ports')]"
+                    "ports": "[variables('bds_ports')]",
+                    "dnsNameLabel": "[variables('DnsName')]"
                 },
                 "volumes": [
                     {
