@@ -6,12 +6,10 @@ else
 fi
 
 {
-    git clone --depth=1 --recursive https://github.com/Bds-Maneger/bds_maneger_api.git /tmp/bds
+    git clone --depth=1 --recursive https://github.com/The-Bds-Maneger/core.git /tmp/bds
     cd /tmp/bds
     npm install
-    if [[ -d "/home/bds/.config/bds_maneger_api" ]];then
-        echo "Bds Dir exist"
-    else
+    if ! [[ -d "/home/bds/.config/bds_maneger_api" ]];then
         mkdir -p "/home/bds/.config/bds_maneger_api"
     fi
 } || {
@@ -24,17 +22,6 @@ if [[ ${HOME} != "/home/bds/" ]]; then
     export HOME="/home/bds/"
     echo "New home: ${HOME}"
 fi
-
-#if [[ -e /home/bds/bds_config.json ]]; then
-#    node /bds_files/setup_node.js
-#else
-#    if [[ ${BDS_REINSTALL} == "true" ]]; then
-#        node /bds_files/setup_node.js
-#    else
-#        echo "Skipping server installation"
-#    fi
-#fi
-
 node /bds_files/setup_node.js
 echo "Setup completed"
 remove() {

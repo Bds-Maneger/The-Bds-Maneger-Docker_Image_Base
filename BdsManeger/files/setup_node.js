@@ -21,10 +21,10 @@ setTimeout(() => {
     else bds_software = false
     console.log("Server detetect:", bds_software)
     function download_bds(){
-        if (process.env.BDS_VERSION == 'latest') var bds_download_version = bds.bds_latest
+        if (process.env.BDS_VERSION == 'latest') var bds_download_version = "latest"
         else var bds_download_version = process.env.BDS_VERSION
         console.log(`downloading the version: ${bds_download_version}`)
-        bds.version_Download(bds_download_version)
+        bds.download(bds_download_version)
     }
     if (bds_software){
         if (process.env.BDS_REINSTALL === "true") download_bds()
